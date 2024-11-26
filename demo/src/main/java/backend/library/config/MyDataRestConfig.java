@@ -1,6 +1,7 @@
 package backend.library.config;
 
 import backend.library.entity.Book;
+import backend.library.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -16,14 +17,16 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.PATCH,HttpMethod.POST};
 
         repositoryRestConfiguration.exposeIdsFor(Book.class);
+        repositoryRestConfiguration.exposeIdsFor(Review.class);
 
         disableHttpMethods(Book.class,repositoryRestConfiguration,theUnsupportedActions);
+        disableHttpMethods(Review.class,repositoryRestConfiguration,theUnsupportedActions);
 
         corsRegistry.addMapping(repositoryRestConfiguration.getBasePath()+"/**").allowedOrigins(theAllowOrigins);
     }
 
-    private void disableHttpMethods(Class<Book> bookClass, RepositoryRestConfiguration repositoryRestConfiguration, HttpMethod[] theUnsupportedActions) {
-        repositoryRestConfiguration.getExposureConfiguration().forDomainType(bookClass)
+    private void disableHttpMethods(Class theClass, RepositoryRestConfiguration repositoryRestConfiguration, HttpMethod[] theUnsupportedActions) {
+        repositoryRestConfiguration.getExposureConfiguration().forDomainType(theClass)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
     }
