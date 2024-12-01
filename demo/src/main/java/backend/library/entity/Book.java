@@ -3,6 +3,7 @@ package backend.library.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
 @Table(name = "book")
@@ -34,4 +35,16 @@ public class Book {
 
     @Column(name = "img")
     private String img;
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getCopiesAvailable() {
+        return copiesAvailable;
+    }
+
+    public void setCopiesAvailable(int copiesAvailable) {
+        this.copiesAvailable = copiesAvailable;
+    }
 }
