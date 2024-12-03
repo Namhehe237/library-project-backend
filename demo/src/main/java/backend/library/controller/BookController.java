@@ -28,7 +28,7 @@ public class BookController {
         return bookService.checkoutBookByUser(userEmail,bookId);
     }
 
-    @GetMapping("/secure/cureentloans/count")
+    @GetMapping("/secure/currentloans/count")
     public int currentLoansCount(){
         String userEmail = "testuser1@email.com";
         return bookService.currentLoansCount(userEmail);
